@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>College be like:</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            margin: 0;
+            background-color: #f0f0f0;
+        }
+
+        h1 {
+            color: #333;
+            margin-bottom: 40px;
+        }
+
+        .toggle-container {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+        }
+
+        .toggle-wrapper {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .toggle-label {
+            font-size: 18px;
+            color: #555;
+            min-width: 100px;
+        }
+
+        .toggle-switch {
+            position: relative;
+            width: 80px;
+            height: 40px;
+            background-color: white;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            border: 2px solid #ccc;
+        }
+
+        .toggle-switch.active {
+            background-color: #4CAF50;
+            border-color: #4CAF50;
+        }
+
+        .toggle-slider {
+            position: absolute;
+            top: 4px;
+            left: 4px;
+            width: 28px;
+            height: 28px;
+            background-color: #fff;
+            border-radius: 50%;
+            transition: transform 0.3s;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
+
+        .toggle-switch.active .toggle-slider {
+            transform: translateX(40px);
+        }
+
+        .info {
+            margin-top: 30px;
+            color: #666;
+            font-size: 14px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <h1>College be like:</h1>
+    
+    <div class="toggle-container">
+        <div class="toggle-wrapper">
+            <span class="toggle-label">healthy Sleep Schedule</span>
+            <div class="toggle-switch" onclick="toggleButton(this, 0)">
+                <div class="toggle-slider"></div>
+            </div>
+        </div>
+
+        <div class="toggle-wrapper">
+            <span class="toggle-label">Enjoying life,learning skills , building projects:</span>
+            <div class="toggle-switch" onclick="toggleButton(this, 1)">
+                <div class="toggle-slider"></div>
+            </div>
+        </div>
+
+        <div class="toggle-wrapper">
+            <span class="toggle-label">Completing all college assignments:</span>
+            <div class="toggle-switch" onclick="toggleButton(this, 2)">
+                <div class="toggle-slider"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="info">
+        Maximum 2 toggles can be green at once
+    </div>
+
+    <script>
+        let activeToggles = [];
+        const MAX_ACTIVE = 2;
+
+        function toggleButton(element, index) {
+            const isActive = element.classList.contains('active');
+            
+            if (isActive) {
+                // Turn off the toggle
+                element.classList.remove('active');
+                const toggleIndex = activeToggles.indexOf(index);
+                if (toggleIndex > -1) {
+                    activeToggles.splice(toggleIndex, 1);
+                }
+            } else {
+                // Turn on the toggle
+                if (activeToggles.length >= MAX_ACTIVE) {
+                    // Remove the first active toggle
+                    const oldestIndex = activeToggles.shift();
+                    const allToggles = document.querySelectorAll('.toggle-switch');
+                    allToggles[oldestIndex].classList.remove('active');
+                }
+                element.classList.add('active');
+                activeToggles.push(index);
+            }
+        }
+    </script>
+</body>
+</html>
+
